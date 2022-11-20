@@ -12,14 +12,8 @@ function Dashboard() {
     direction: 'n',
   });
   const [movements, setMovements] = useState<string>('');
-
-  const handleBoardSubmit = (
-    e: MouseEvent<HTMLButtonElement>,
-    boardObject: BoardObject
-  ) => {
-    e.preventDefault();
-    setBoardObject(boardObject);
-  };
+  const maxBoardSize = 20;
+  const minBoardSize = 1;
 
   const handlePositionSubmit = (
     e: MouseEvent<HTMLButtonElement>,
@@ -27,6 +21,7 @@ function Dashboard() {
   ) => {
     e.preventDefault();
     setRobotPosition(robotPositionObject);
+    setMovements('');
   };
 
   const handleMoveSubmit = (
@@ -37,12 +32,24 @@ function Dashboard() {
     setMovements(movements);
   };
 
+  const incrementBoardSize = () => {
+    boardObject.boardSize < maxBoardSize &&
+      setBoardObject((prev) => ({ ...prev, boardSize: prev.boardSize + 1 }));
+  };
+
+  const decrementBoardSize = () => {
+    boardObject.boardSize > minBoardSize &&
+      setBoardObject((prev) => ({ ...prev, boardSize: prev.boardSize - 1 }));
+  };
+
   return (
     <S.Dashboard>
       <ControlPanel
-        handleBoardSubmitFn={handleBoardSubmit}
+        boardObject={boardObject}
         handlePositionSubmitFn={handlePositionSubmit}
         handleMoveSubmitFn={handleMoveSubmit}
+        incrementBoardSize={incrementBoardSize}
+        decrementBoardSize={decrementBoardSize}
       />
       <BoardPanel
         boardObject={boardObject}

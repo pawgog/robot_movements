@@ -1,14 +1,15 @@
 import styled from 'styled-components';
 
 export const ControlPanel = styled.div`
-  width: 30%;
+  width: 40%;
   padding: 1rem;
   margin: 0 auto;
+  text-align: center;
 
   & form {
     margin: 1rem 0;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid #adacac;
     text-align: center;
 
     & > div {

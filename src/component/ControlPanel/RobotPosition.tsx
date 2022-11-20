@@ -69,19 +69,22 @@ function RobotPosition({ boardSize, handlePositionSubmitFn }: IProps) {
           <FormControlLabel value="w" control={<Radio />} label="West" />
         </RadioGroup>
       </FormControl>
-      <Button
-        variant="contained"
-        color="success"
-        onClick={(e) =>
-          handlePositionSubmitFn(e, {
-            x: Number(xPositionRef.current.value),
-            y: Number(yPositionRef.current.value),
-            direction: robotDirectrion,
-          })
-        }
-      >
-        Add Robot Start Position
-      </Button>
+      <div>
+        <Button
+          variant="contained"
+          color="success"
+          disabled={boardSize <= 1}
+          onClick={(e) =>
+            handlePositionSubmitFn(e, {
+              x: Number(xPositionRef.current.value),
+              y: Number(yPositionRef.current.value),
+              direction: robotDirectrion,
+            })
+          }
+        >
+          Add Robot Start Position
+        </Button>
+      </div>
     </form>
   );
 }

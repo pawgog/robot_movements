@@ -1,6 +1,11 @@
-import { Grid } from '@mui/material';
 import * as S from './BoardPanel.styled';
-import { BoardObject, RobotPositionObject } from '../utils/type';
+import { v4 as uuidv4 } from 'uuid';
+import { Grid } from '@mui/material';
+import {
+  BoardObject,
+  RobotPositionObject,
+  RobotMovementsObject,
+} from '../utils/type';
 import { calculateRobotMovements } from '../utils/helpers';
 
 interface IProps {
@@ -11,7 +16,7 @@ interface IProps {
 
 function BoardPanel({ boardObject, robotPosition, movements }: IProps) {
   const { boardSize } = boardObject;
-  const { x, y, direction } = calculateRobotMovements(
+  const { x, y, direction, arrayMovements } = calculateRobotMovements(
     boardObject,
     robotPosition,
     movements
@@ -31,9 +36,11 @@ function BoardPanel({ boardObject, robotPosition, movements }: IProps) {
           }}
         >
           {Array.from(Array(boardSquares)).map((_, index) => (
-            <Grid item key={index}>
+            <Grid item key={uuidv4()}>
               {index === calcRobotPosition && x >= 0 ? (
-                <S.PaperStyled>R {direction}</S.PaperStyled>
+                <S.PaperStyled>
+                  <S.RobotIcon $direction={direction} />
+                </S.PaperStyled>
               ) : (
                 <S.PaperStyled />
               )}
@@ -41,6 +48,26 @@ function BoardPanel({ boardObject, robotPosition, movements }: IProps) {
           ))}
         </Grid>
       </S.BoxStyled>
+      <S.RobotMovePanel>
+        {Object.keys(arrayMovements).map((key: string) => {
+          const robotMove =
+            arrayMovements[key as keyof Array<RobotMovementsObject> | any];
+          return robotMove.isMove ? (
+            <S.RobotMove key={uuidv4()} $isRobotMove={robotMove.isMove}>
+              {robotMove.move}
+            </S.RobotMove>
+          ) : (
+            <S.RobotMove key={uuidv4()} $isRobotMove={robotMove.isMove}>
+              {robotMove.move}
+            </S.RobotMove>
+          );
+        })}
+        {x > -1 && y > -1 ? (
+          <div>
+            Current robot position: ({x}, {y}, {direction.toUpperCase()})
+          </div>
+        ) : null}
+      </S.RobotMovePanel>
     </S.BoardPanel>
   );
 }

@@ -7,3 +7,8 @@ export type RobotPositionObject = {
   y: number;
   direction: string;
 };
+
+export type RobotMovementsObject = {
+  move: string;
+  isMove: boolean;
+};

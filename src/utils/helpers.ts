@@ -23,10 +23,12 @@ export const calculateRobotMovements = (
   let countUp = y;
   let countLeft = x;
   let robotDirection = directionToNumber[direction];
+  const arrayMovements = [];
 
   for (let i = 0; i < moveLength; i++) {
     switch (movements[i]) {
       case 'R':
+        arrayMovements.push({ move: movements[i], isMove: true });
         if (robotDirection === 3) {
           robotDirection = 0;
         } else {
@@ -34,17 +36,55 @@ export const calculateRobotMovements = (
         }
         break;
       case 'L':
-        if (robotDirection === 3) {
-          robotDirection = 0;
+        arrayMovements.push({ move: movements[i], isMove: true });
+        if (robotDirection === 0) {
+          robotDirection = 3;
         } else {
           robotDirection--;
         }
         break;
       case 'F':
-        if (robotDirection === 0) countUp--;
-        if (robotDirection === 1) countLeft++;
-        if (robotDirection === 2) countUp++;
-        if (robotDirection === 3) countLeft--;
+        let num = 0;
+        switch (robotDirection) {
+          case 0:
+            num = countUp - 1;
+            if (num >= 0) {
+              countUp--;
+              arrayMovements.push({ move: movements[i], isMove: true });
+            } else {
+              arrayMovements.push({ move: movements[i], isMove: false });
+            }
+            break;
+          case 1:
+            num = countLeft + 1;
+            if (num < boardObject.boardSize) {
+              countLeft++;
+              arrayMovements.push({ move: movements[i], isMove: true });
+            } else {
+              arrayMovements.push({ move: movements[i], isMove: false });
+            }
+            break;
+          case 2:
+            num = countUp + 1;
+            if (num < boardObject.boardSize) {
+              countUp++;
+              arrayMovements.push({ move: movements[i], isMove: true });
+            } else {
+              arrayMovements.push({ move: movements[i], isMove: false });
+            }
+            break;
+          case 3:
+            num = countLeft - 1;
+            if (num >= 0) {
+              countLeft--;
+              arrayMovements.push({ move: movements[i], isMove: true });
+            } else {
+              arrayMovements.push({ move: movements[i], isMove: false });
+            }
+            break;
+          default:
+            break;
+        }
         break;
       default:
         break;
@@ -55,5 +95,6 @@ export const calculateRobotMovements = (
     x: countLeft,
     y: countUp,
     direction: directionToString[robotDirection],
+    arrayMovements,
   };
 };

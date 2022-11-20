@@ -1,4 +1,4 @@
-import { useState, MouseEvent } from 'react';
+import { MouseEvent, MouseEventHandler } from 'react';
 import * as S from './ControlPanel.styled';
 import BoardSize from './BoardSize';
 import RobotPosition from './RobotPosition';
@@ -6,10 +6,7 @@ import RobotMovement from './RobotMovement';
 import { BoardObject, RobotPositionObject } from '../../utils/type';
 
 interface IProps {
-  handleBoardSubmitFn: (
-    e: MouseEvent<HTMLButtonElement>,
-    boardObject: BoardObject
-  ) => void;
+  boardObject: BoardObject;
   handlePositionSubmitFn: (
     e: MouseEvent<HTMLButtonElement>,
     robotPosition: RobotPositionObject
@@ -18,24 +15,18 @@ interface IProps {
     e: MouseEvent<HTMLButtonElement>,
     movements: string
   ) => void;
+  incrementBoardSize: MouseEventHandler<HTMLButtonElement>;
+  decrementBoardSize: MouseEventHandler<HTMLButtonElement>;
 }
 
 function ControlPanel({
-  handleBoardSubmitFn,
+  boardObject,
   handlePositionSubmitFn,
   handleMoveSubmitFn,
+  incrementBoardSize,
+  decrementBoardSize,
 }: IProps) {
-  const [boardSize, setBoardSize] = useState<number>(2);
-  const maxBoardSize = 20;
-  const minBoardSize = 2;
-
-  const incrementBoardSize = () => {
-    setBoardSize((prev) => (prev === maxBoardSize ? maxBoardSize : prev + 1));
-  };
-
-  const decrementBoardSize = () => {
-    setBoardSize((prev) => (prev === minBoardSize ? minBoardSize : prev - 1));
-  };
+  const { boardSize } = boardObject;
 
   return (
     <S.ControlPanel>
@@ -44,13 +35,15 @@ function ControlPanel({
         boardSize={boardSize}
         incrementBoardSize={incrementBoardSize}
         decrementBoardSize={decrementBoardSize}
-        handleBoardSubmitFn={handleBoardSubmitFn}
       />
       <RobotPosition
         boardSize={boardSize}
         handlePositionSubmitFn={handlePositionSubmitFn}
       />
-      <RobotMovement handleMoveSubmitFn={handleMoveSubmitFn} />
+      <RobotMovement
+        boardSize={boardSize}
+        handleMoveSubmitFn={handleMoveSubmitFn}
+      />
     </S.ControlPanel>
   );
 }
