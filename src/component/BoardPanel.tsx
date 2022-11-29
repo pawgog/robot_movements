@@ -1,6 +1,8 @@
 import * as S from './BoardPanel.styled';
 import { v4 as uuidv4 } from 'uuid';
 import { Grid } from '@mui/material';
+import SmartToyIcon from '@mui/icons-material/SmartToy';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import {
   BoardObject,
   RobotPositionObject,
@@ -39,7 +41,10 @@ function BoardPanel({ boardObject, robotPosition, movements }: IProps) {
             <Grid item key={uuidv4()}>
               {index === calcRobotPosition && x >= 0 ? (
                 <S.PaperStyled>
-                  <S.RobotIcon $direction={direction} />
+                  <S.IconsBoard $direction={direction}>
+                    <ArrowDownwardIcon />
+                    <SmartToyIcon />
+                  </S.IconsBoard>
                 </S.PaperStyled>
               ) : (
                 <S.PaperStyled />

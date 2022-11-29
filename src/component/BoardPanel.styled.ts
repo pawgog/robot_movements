@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { Box, Paper } from '@mui/material';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 export const BoardPanel = styled.div`
   display: flex;
@@ -24,13 +23,25 @@ export const RobotMove = styled.span<{ $isRobotMove: boolean }>(
   `
 );
 
-export const RobotIcon = styled(ArrowUpwardIcon)<{ $direction: string }>(
+export const IconsBoard = styled.div<{ $direction: string }>(
   ({ $direction }) => `
   transform: ${
-    ($direction === 'n' && 'rotate(0deg)') ||
-    ($direction === 'e' && 'rotate(90deg)') ||
-    ($direction === 's' && 'rotate(180deg)') ||
-    ($direction === 'w' && 'rotate(270deg)')
+    ($direction === 's' && 'rotate(0deg);') ||
+    ($direction === 'w' && 'rotate(90deg);') ||
+    ($direction === 'n' && 'rotate(180deg);') ||
+    ($direction === 'e' && 'rotate(270deg);')
+  }
+  position: relative;
+  & svg {
+    position: absolute;
+    top: -20px;
+    left: -12px;
+    right: 0;
+    bottom: 0;
+
+    &:first-child {
+      top: -6px;
+    }
   }
 `
 );
