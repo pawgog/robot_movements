@@ -9,6 +9,7 @@ import {
   RobotMovementsObject,
 } from '../utils/type';
 import { calculateRobotMovements } from '../utils/helpers';
+import { staticText } from '../utils/staticText';
 
 interface IProps {
   boardObject: BoardObject;
@@ -28,7 +29,7 @@ function BoardPanel({ boardObject, robotPosition, movements }: IProps) {
 
   return (
     <S.BoardPanel>
-      <h1>Board Panel</h1>
+      <h1>{staticText.boardPanel}</h1>
       <S.BoxStyled>
         <Grid
           container
@@ -69,7 +70,8 @@ function BoardPanel({ boardObject, robotPosition, movements }: IProps) {
         })}
         {x > -1 && y > -1 ? (
           <div>
-            Current robot position: ({x}, {y}, {direction.toUpperCase()})
+            {staticText.currentRobotPosition} ({x}, {y},{' '}
+            {direction.toUpperCase()})
           </div>
         ) : null}
       </S.RobotMovePanel>

@@ -1,5 +1,6 @@
 import { useRef, MouseEvent } from 'react';
 import { TextField, Button } from '@mui/material';
+import { staticText } from '../../utils/staticText';
 
 interface IProps {
   boardSize: number;
@@ -24,7 +25,7 @@ function RobotMovement({ boardSize, handleMoveSubmitFn }: IProps) {
           disabled={boardSize <= 1}
           onClick={(e) => handleMoveSubmitFn(e, movementsRef.current.value)}
         >
-          Run Robot
+          {staticText.runRobot}
         </Button>
       </div>
     </form>

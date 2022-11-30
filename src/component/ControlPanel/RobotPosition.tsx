@@ -10,6 +10,7 @@ import {
   Button,
 } from '@mui/material';
 import { RobotPositionObject } from '../../utils/type';
+import { staticText } from '../../utils/staticText';
 
 interface IProps {
   boardSize: number;
@@ -55,7 +56,7 @@ function RobotPosition({ boardSize, handlePositionSubmitFn }: IProps) {
         />
       </S.RobotPositionInputs>
       <FormControl>
-        <FormLabel id="robot-direction">Robot start direction</FormLabel>
+        <FormLabel id="robot-direction">{staticText.startDirection}</FormLabel>
         <RadioGroup
           row
           aria-labelledby="robot-direction"
@@ -82,7 +83,7 @@ function RobotPosition({ boardSize, handlePositionSubmitFn }: IProps) {
             })
           }
         >
-          Add Robot Start Position
+          {staticText.addStartPosition}
         </Button>
       </div>
     </form>

@@ -4,6 +4,7 @@ import BoardSize from './BoardSize';
 import RobotPosition from './RobotPosition';
 import RobotMovement from './RobotMovement';
 import { BoardObject, RobotPositionObject } from '../../utils/type';
+import { staticText } from '../../utils/staticText';
 
 interface IProps {
   boardObject: BoardObject;
@@ -30,7 +31,7 @@ function ControlPanel({
 
   return (
     <S.ControlPanel>
-      <h1>Control Panel</h1>
+      <h1>{staticText.controlPanel}</h1>
       <BoardSize
         boardSize={boardSize}
         incrementBoardSize={incrementBoardSize}
