@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { colors } from '../../utils/colors';
 
 export const ControlPanel = styled.div`
   width: 40%;
@@ -9,7 +10,7 @@ export const ControlPanel = styled.div`
   & form {
     margin: 1rem 0;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid #adacac;
+    border-bottom: 1px solid ${colors.grey};
     text-align: center;
 
     & > div {

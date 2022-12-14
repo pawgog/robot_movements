@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Box, Paper } from '@mui/material';
+import { colors } from '../utils/colors';
 
 export const BoardPanel = styled.div`
   display: flex;
@@ -16,7 +17,7 @@ export const RobotMovePanel = styled.div`
 
 export const RobotMove = styled.span<{ $isRobotMove: boolean }>(
   ({ $isRobotMove }) => `
-    color: ${$isRobotMove ? '#2e7d32' : '#d32f2f'}};
+    color: ${$isRobotMove ? `${colors.green}` : `${colors.red}`}};
     padding: 0 .2rem;
     font-size: 1.2rem;
     font-weight: bold;
