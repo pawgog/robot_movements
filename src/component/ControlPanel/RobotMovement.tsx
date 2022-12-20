@@ -18,10 +18,9 @@ function RobotMovement({ boardSize, handleMoveSubmitFn }: IProps) {
   const isInputValid = (e: any) => {
     const inputValue = e.target.value.toLowerCase();
     const isInputValue =
-      inputValue.includes('f') ||
-      inputValue.includes('r') ||
-      inputValue.includes('l') ||
+      [...inputValue].every((val) => /f|r|l/.test(val)) ||
       inputValue.length === 0;
+
     return setIsValid(!isInputValue);
   };
 
