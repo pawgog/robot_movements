@@ -13,6 +13,10 @@ export const MovementsBoard = styled.div`
   & > div {
     margin: 0.5rem;
 
+    & input {
+      text-transform: uppercase;
+    }
+
     & h4,
     p {
       margin: 0.4rem 0;

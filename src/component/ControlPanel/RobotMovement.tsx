@@ -14,10 +14,16 @@ interface IProps {
 
 function RobotMovement({ boardSize, handleMoveSubmitFn }: IProps) {
   const [isValid, setIsValid] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
   const movementsRef = useRef({ value: '' });
 
   const handleInputValue = (value: string, regex: string) => {
     const validationResult = checkIsInputValid(value, regex);
+    setIsDisabled(
+      validationResult ||
+        movementsRef.current.value.length === 0 ||
+        boardSize <= 1
+    );
     setIsValid(validationResult);
   };
 
@@ -25,15 +31,15 @@ function RobotMovement({ boardSize, handleMoveSubmitFn }: IProps) {
     <form>
       <S.MovementsBoard>
         <div>
-          <h4>Robot movements</h4>
+          <h4>{staticText.robotMovements}</h4>
           <p>
-            <span>F</span> - go forward
+            <span>F</span> - {staticText.goForward}
           </p>
           <p>
-            <span>L</span> - turn left
+            <span>L</span> - {staticText.turnLeft}
           </p>
           <p>
-            <span>R</span> - turn right
+            <span>R</span> - {staticText.turnRight}
           </p>
         </div>
         <div>
@@ -42,8 +48,8 @@ function RobotMovement({ boardSize, handleMoveSubmitFn }: IProps) {
             size="small"
             inputRef={movementsRef}
             error={isValid}
-            helperText={isValid ? 'Value is incorrect' : ''}
-            onChange={(e) => handleInputValue(e.target.value, '/f|r|l/')}
+            helperText={isValid ? `${staticText.validationWarning}` : ''}
+            onChange={(e) => handleInputValue(e.target.value, 'f|r|l')}
           />
         </div>
       </S.MovementsBoard>
@@ -51,7 +57,7 @@ function RobotMovement({ boardSize, handleMoveSubmitFn }: IProps) {
         <Button
           variant="contained"
           color="success"
-          disabled={boardSize <= 1}
+          disabled={isDisabled}
           onClick={(e) => handleMoveSubmitFn(e, movementsRef.current.value)}
         >
           {staticText.runRobot}

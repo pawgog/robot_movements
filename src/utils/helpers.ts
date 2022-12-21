@@ -3,6 +3,7 @@ import { BoardObject, RobotPositionObject } from './type';
 export const checkIsInputValid = (value: string, regex: string) => {
   const inputValue = value.toLowerCase();
   const newRegex = new RegExp(regex);
+
   const isInputValue =
     [...inputValue].every((val) => newRegex.test(val)) ||
     inputValue.length === 0;
