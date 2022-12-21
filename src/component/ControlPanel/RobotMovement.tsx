@@ -1,6 +1,7 @@
-import { useRef, MouseEvent, useState } from 'react';
+import { useState, useRef, MouseEvent } from 'react';
 import { TextField, Button } from '@mui/material';
 import * as S from './RobotMovement.styled';
+import { checkIsInputValid } from '../../utils/helpers';
 import { staticText } from '../../utils/staticText';
 
 interface IProps {
@@ -15,13 +16,9 @@ function RobotMovement({ boardSize, handleMoveSubmitFn }: IProps) {
   const [isValid, setIsValid] = useState(false);
   const movementsRef = useRef({ value: '' });
 
-  const isInputValid = (e: any) => {
-    const inputValue = e.target.value.toLowerCase();
-    const isInputValue =
-      [...inputValue].every((val) => /f|r|l/.test(val)) ||
-      inputValue.length === 0;
-
-    return setIsValid(!isInputValue);
+  const handleInputValue = (value: string, regex: string) => {
+    const validationResult = checkIsInputValid(value, regex);
+    setIsValid(validationResult);
   };
 
   return (
@@ -46,8 +43,7 @@ function RobotMovement({ boardSize, handleMoveSubmitFn }: IProps) {
             inputRef={movementsRef}
             error={isValid}
             helperText={isValid ? 'Value is incorrect' : ''}
-            // inputProps={{ pattern: '[0-9]' }}
-            onChange={(e) => isInputValid(e)}
+            onChange={(e) => handleInputValue(e.target.value, '/f|r|l/')}
           />
         </div>
       </S.MovementsBoard>
